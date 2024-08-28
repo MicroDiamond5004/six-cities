@@ -11,6 +11,7 @@ function useMap(
 
   useEffect(() => {
     if (mapRef.current !== null && !isRenderedRef.current) {
+      console.log(cordinats);
       const instance = new Map(mapRef.current, {
         center: {
           lat: cordinats.lat,

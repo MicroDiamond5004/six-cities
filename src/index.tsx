@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { offers } from './mocks/offers';
+import { amsterdamOffers } from './mocks/amsterdam-offers';
 
 const enum Setting {
   FavoriteCount = 15,
@@ -15,7 +15,7 @@ root.render(
   <React.StrictMode>
     <App
       favoriteCount={Setting.FavoriteCount}
-      offers={offers}
+      offers={amsterdamOffers}
     />
   </React.StrictMode>
 );

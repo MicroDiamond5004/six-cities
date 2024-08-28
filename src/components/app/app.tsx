@@ -28,7 +28,7 @@ function App({favoriteCount, offers}: AppScreenProps): JSX.Element {
           <Route path={AppRoute.Root} element={<Layout favoriteCount={favoriteCount}/>}>
             <Route
               index
-              element={<WelcomeScreen offers={offers} />}
+              element={<WelcomeScreen/>}
             />
             <Route
               path={AppRoute.Favorite}

@@ -1,7 +1,7 @@
 import { Offer } from '../types/type-offers';
 
-export const offers: Offer[] = [{
-  id: '1',
+export const dusseldorfOffers: Offer[] = [{
+  id: '61',
   offerName: 'studio',
   photos: ['img/room.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/studio-01.jpg', 'img/apartment-01.jpg'],
   title: 'Beautiful & luxurious studio at great location',
@@ -27,12 +27,12 @@ export const offers: Offer[] = [{
     date: '06.08.2024'
   }],
   map: {
-    lat: 52.3909553943508,
-    lng: 4.85309666406198
+    lat: 51.2277,
+    lng: 6.7735,
   },
 },
 {
-  id: '2',
+  id: '62',
   offerName: 'apartament',
   photos: ['img/room.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg'],
   title: 'Nice, cozy, warm big bed apartment',
@@ -58,12 +58,12 @@ export const offers: Offer[] = [{
     date: '06.08.2024'
   }],
   map: {
-    lat: 52.3609553943508,
-    lng: 4.85309666406198
+    lat: 51.2300,
+    lng: 6.7728,
   },
 },
 {
-  id: '3',
+  id: '63',
   offerName: 'house',
   photos: ['img/room.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg'],
   title: 'Nice, cozy, warm big bed apartment',
@@ -89,12 +89,12 @@ export const offers: Offer[] = [{
     date: '06.08.2024'
   }],
   map: {
-    lat: 52.3909553943508,
-    lng: 4.929309666406198,
+    lat: 51.2252,
+    lng: 6.7760,
   },
 },
 {
-  id: '4',
+  id: '64',
   offerName: 'apartament 2',
   photos: ['img/room.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg', 'img/apartment-01.jpg', 'img/apartment-02.jpg', 'img/apartment-03.jpg'],
   title: 'Nice, cozy, warm big bed apartment',
@@ -120,7 +120,7 @@ export const offers: Offer[] = [{
     date: '06.08.2024'
   }],
   map: {
-    lat: 52.3809553943508,
-    lng: 4.939309666406198,
+    lat: 51.2295,
+    lng: 6.7783,
   },
 }];

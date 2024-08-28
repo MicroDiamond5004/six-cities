@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 type OffersProps = {
   offers: Offer[];
-  handlerMouseOnOffer: (offer: Offer) => void | null;
+  handlerMouseOnOffer: (offer: Offer) => (void | { payload: Offer; type: string }) | null ;
 }
 
 function ListOfOffers(props: OffersProps): JSX.Element {

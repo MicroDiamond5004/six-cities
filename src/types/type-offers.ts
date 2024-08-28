@@ -35,7 +35,16 @@ export type Offer = {
   map: OfferMap;
 }
 
+export type CitiesOffers = {
+  Paris: Offer[];
+  Cologne: Offer[];
+  Brussels:Offer[];
+  Amsterdam: Offer[];
+  Hamburg: Offer[];
+  Dusseldorf: Offer[];
+}
+
 export type Comments = {
   rating: number;
   text: string;
-};
+}

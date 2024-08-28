@@ -2,7 +2,7 @@ import { Offer, OfferMap } from '../../../types/type-offers';
 import { useRef, useEffect } from 'react';
 import useMap from '../../hooks/use-map';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../../const';
-import { Icon, layerGroup, Marker } from 'leaflet';
+import L, { Icon, layerGroup, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
@@ -34,6 +34,7 @@ function Map(props: MapProps): JSX.Element {
 
     if(map) {
       const markerLayer = layerGroup().addTo(map);
+      map.panTo(new L.LatLng(cordinats.lat, cordinats.lng));
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.map.lat,
