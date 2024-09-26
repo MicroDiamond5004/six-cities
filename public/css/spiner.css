@@ -1,0 +1,21 @@
+.popup-overlay {
+    width: 100%;
+    height: 100%;
+    z-index: 100000;
+    display: block;
+    position: fixed;
+    background-color: rgb(255 255 255 / 70%);
+}
+
+.popup {
+    display: block;
+    height: auto;
+    width: 10%;
+    margin: 30vh auto;
+} 
+
+.popup h3 {
+    text-align: center;
+    transform: translateY(-50px);
+    color: #667f96;
+}

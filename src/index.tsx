@@ -2,6 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { amsterdamOffers } from './mocks/amsterdam-offers';
+import { store } from './store';
+import { checkAuthAction, fetchOffersAction } from './services/api-actions';
+
+store.dispatch(fetchOffersAction());
+store.dispatch(checkAuthAction());
 
 const enum Setting {
   FavoriteCount = 15,

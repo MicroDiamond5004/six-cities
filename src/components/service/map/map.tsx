@@ -34,11 +34,11 @@ function Map(props: MapProps): JSX.Element {
 
     if(map) {
       const markerLayer = layerGroup().addTo(map);
-      map.panTo(new L.LatLng(cordinats.lat, cordinats.lng));
+      map.panTo(new L.LatLng(cordinats.latitude, cordinats.longitude));
       offers.forEach((offer) => {
         const marker = new Marker({
-          lat: offer.map.lat,
-          lng: offer.map.lng,
+          lat: offer.location.latitude,
+          lng: offer.location.longitude,
         });
 
         marker.setIcon(currentPoint !== undefined && currentPoint.id === offer.id ? activeCustomIcon : defaultCustomIcon).addTo(markerLayer);

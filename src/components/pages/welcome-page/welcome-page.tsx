@@ -2,48 +2,53 @@ import { Offer } from '../../../types/type-offers';
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import ListOfOffers from '../list-of-offers/list-of-offers';
-import { createListOfOffers, changeCity, changeOffer, changeSortOffers } from '../../../store/action';
+import { createListOfOffers, changeCity, changeOffer, changeSortOffers, loadOffers, changeSortType, setLoadStatus } from '../../../store/action';
 import Map from '../../service/map/map';
-import { offersCityLocations } from './cities-component/cities-component';
 import SortComponent from '../sort-component/sort-component';
 import { SortTypes } from '../../../const';
+import Spinner from '../../spinner/spinner';
 
 function WelcomeScreen(): JSX.Element {
   const offers = useAppSelector((state) => state.sortOffers);
   const city = useAppSelector((state) => state.city);
   const offer = useAppSelector((state) => state.currentOffer);
+  const uploadOffers = useAppSelector((state) => state.offers);
+  const isLoading = useAppSelector((state) => !state.loadStatus);
+
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (uploadOffers) {
+      dispatch(createListOfOffers(uploadOffers?.filter((offer) => offer.city.name === city)));
+      dispatch(changeSortType('Popular'));
+    }
+  }, [uploadOffers, city]);
+
+  console.log(offers, offer, city);
 
   const changeCityOffers = (evt: React.MouseEvent<HTMLLIElement>) => {
     const currentCity = evt.currentTarget.textContent;
     switch (currentCity) {
       case 'Paris':
         dispatch(changeCity(currentCity));
-        dispatch(createListOfOffers(offersCityLocations[currentCity]));
         break;
       case 'Cologne':
         dispatch(changeCity(currentCity));
-        dispatch(createListOfOffers(offersCityLocations[currentCity]));
         break;
       case 'Brussels':
         dispatch(changeCity(currentCity));
-        dispatch(createListOfOffers(offersCityLocations[currentCity]));
         break;
       case 'Amsterdam':
         dispatch(changeCity(currentCity));
-        dispatch(createListOfOffers(offersCityLocations[currentCity]));
         break;
       case 'Hamburg':
         dispatch(changeCity(currentCity));
-        dispatch(createListOfOffers(offersCityLocations[currentCity]));
         break;
       case 'Dusseldorf':
         dispatch(changeCity(currentCity));
-        dispatch(createListOfOffers(offersCityLocations[currentCity]));
         break;
       default:
         dispatch(changeCity('Paris'));
-        dispatch(createListOfOffers(offersCityLocations.Paris));
         break;
     }
   };
@@ -57,6 +62,7 @@ function WelcomeScreen(): JSX.Element {
   const NameCities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
   return (
     <main className="page__main page__main--index">
+      {isLoading && <Spinner />}
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
@@ -80,15 +86,15 @@ function WelcomeScreen(): JSX.Element {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offers.length} places to stay in {city}</b>
+            <b className="places__found">{offers?.length} places to stay in {city}</b>
             {<SortComponent handlerOnChangeSort={handleOnChangeSort} />}
             <div className="cities__places-list places__list tabs__content">
-              {<ListOfOffers offers={offers} handlerMouseOnOffer={(curOffer: Offer) => dispatch(changeOffer(curOffer))} />}
+              {offers && <ListOfOffers offers={offers} handlerMouseOnOffer={(curOffer: Offer) => dispatch(changeOffer(curOffer))} />}
             </div>
           </section>
           <div className="cities__right-section">
             {/* <section className="cities__map map"></section> */}
-            {<Map offers={offers} cordinats={offers[0].map} currentPoint={offer} height={794} width={500}/>}
+            {offers && <Map offers={offers} cordinats={offers[0].city.location} currentPoint={offer || offers[0]} height={794} width={500}/>}
           </div>
         </div>
       </div>
