@@ -15,24 +15,33 @@ export type OfferReview = Host & {
 }
 
 export type OfferMap = {
-  lat: number;
-  lng: number;
+  latitude: number;
+  longitude: number;
+  zoom: number;
 }
 
 export type Offer = {
   id: string;
-  offerName: string;
-  photos: AppartamentImages[];
+  city: {
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
+    }
+    name: string;
+  }
+  isFavourite: boolean;
+  isPremium: boolean;
+  location: {
+    latitude: number;
+    longitude: number;
+    zoom: number;
+  }
+  previewImage: string;
   title: string;
   rating: number;
   type: string;
-  bedrooms: number;
-  maxPersons: number;
-  cost: number;
-  include: OfferInclude;
-  host: Host;
-  reviews: OfferReview[];
-  map: OfferMap;
+  price: number;
 }
 
 export type CitiesOffers = {

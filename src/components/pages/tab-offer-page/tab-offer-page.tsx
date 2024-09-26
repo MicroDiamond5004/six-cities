@@ -7,7 +7,7 @@ type offerProps = {
 };
 
 function TabOfferScreen ({offer, onChangeOffer}: offerProps) : JSX.Element {
-  const {id, photos, cost, rating, title, type} = offer;
+  const {id, price, rating, title, type, previewImage} = offer;
   return (
     <article key={id} className="cities__card place-card" onMouseOver={onChangeOffer}>
       <div className="place-card__mark">
@@ -15,13 +15,13 @@ function TabOfferScreen ({offer, onChangeOffer}: offerProps) : JSX.Element {
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${id}`}>
-          <img className="place-card__image" src={photos[0]} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
         </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{cost}</b>
+            <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className="place-card__bookmark-button button" type="button">
@@ -33,7 +33,7 @@ function TabOfferScreen ({offer, onChangeOffer}: offerProps) : JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{'width': `${rating * 20}%`}}></span>
+            <span style={{'width': `${Math.round(rating) * 20}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

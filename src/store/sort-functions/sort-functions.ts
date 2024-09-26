@@ -1,11 +1,11 @@
 import { Offer } from '../../types/type-offers';
 
 export function sortByHighPrice(offerA: Offer, offerB: Offer) {
-    if (offerA.cost > offerB.cost) {
+    if (offerA.price > offerB.price) {
         return -1;
     }
 
-    if (offerA.cost < offerB.cost) {
+    if (offerA.price < offerB.price) {
         return 1;
     }
 
@@ -25,11 +25,11 @@ export function sortByHighRating(offerA: Offer, offerB: Offer) {
 }
 
 export function sortByLowPrice(offerA: Offer, offerB: Offer) {
-    if (offerA.cost < offerB.cost) {
+    if (offerA.price < offerB.price) {
         return -1;
     }
 
-    if (offerA.cost > offerB.cost) {
+    if (offerA.price > offerB.price) {
         return 1;
     }
 
