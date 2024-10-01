@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, changeOffer, changeSortOffers, changeSortType, createListOfOffers, loadOffers, requireAuthotization, setLoadStatus } from './action';
+import { changeCity, changeOffer, changeSortOffers, changeSortType, createListOfOffers, loadOffers, requireAuthotization, setError, setLoadStatus } from './action';
 import { Offer } from '../types/type-offers';
 import { offersCityLocations } from '../components/pages/welcome-page/cities-component/cities-component';
 import { AuthorizationStatus, SortTypes } from '../const';
@@ -15,6 +15,8 @@ type InitialStateProps = {
   authorizationStatus: AuthorizationStatus;
   sortType: string;
   loadStatus: boolean;
+  error: string | null;
+  favoriteCount: number,
 }
 
 const initialState: InitialStateProps = {
@@ -26,6 +28,8 @@ const initialState: InitialStateProps = {
   authorizationStatus: AuthorizationStatus.Unknown,
   sortType: 'Popular',
   loadStatus: false,
+  error: null,
+  favoriteCount: 15,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -77,6 +81,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setLoadStatus, (state, action) => {
       state.loadStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
     })
 });
 

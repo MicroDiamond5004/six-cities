@@ -1,12 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { Offer } from '../../../types/type-offers';
+import { useAppSelector } from '../../hooks';
 
-type FavoritesProps = {
-  offers: Offer[];
-};
-
-function FavoritesScreen({offers}: FavoritesProps): JSX.Element {
+function FavoritesScreen(): JSX.Element {
   const navigate = useNavigate();
+  const offers = useAppSelector((store) => store.listOfOffers)
   return (
     <main className="page__main page__main--favorites page__main--favorites-empty">
       <div className="page__favorites-container container">
@@ -23,7 +20,7 @@ function FavoritesScreen({offers}: FavoritesProps): JSX.Element {
               </div>
               <div className="favorites__places">
                 {offers.map((offer) => {
-                  const {id, photos, title, rating: offerRating, type, cost} = offer;
+                  const {id, previewImage, title, rating: offerRating, type, price} = offer;
                   return(
                     <article className="favorites__card place-card" key={id}>
                       <div className="place-card__mark">
@@ -31,13 +28,13 @@ function FavoritesScreen({offers}: FavoritesProps): JSX.Element {
                       </div>
                       <div className="favorites__image-wrapper place-card__image-wrapper">
                         <a onClick={() => navigate(`/offer/${id}`)}>
-                          <img className="place-card__image" src={photos[0]} width="150" height="110" alt="Place image"/>
+                          <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place image"/>
                         </a>
                       </div>
                       <div className="favorites__card-info place-card__info">
                         <div className="place-card__price-wrapper">
                           <div className="place-card__price">
-                            <b className="place-card__price-value">&euro;{cost}</b>
+                            <b className="place-card__price-value">&euro;{price}</b>
                             <span className="place-card__price-text">&#47;&nbsp;night</span>
                           </div>
                           <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">

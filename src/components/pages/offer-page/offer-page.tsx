@@ -4,15 +4,13 @@ import ListOfOffers from '../list-of-offers/list-of-offers';
 import FormCommentComponent from '../offer-page/comments/form-comment-component';
 import Map from '../../service/map/map';
 import { useState } from 'react';
+import { useAppSelector } from '../../hooks';
 
-type OfferProps = {
-  offers: Offer[];
-}
 
-function OfferScreen(props: OfferProps): JSX.Element {
+function OfferScreen(): JSX.Element {
   const location = useLocation();
 
-  const {offers} = props;
+  const offers = useAppSelector((store) => store.listOfOffers)
   let offerId = -1;
   const [clickOnOffer, setOffer] = useState(offers[0]);
   for (let i = 0; i < offers.length; i++) {
@@ -28,11 +26,11 @@ function OfferScreen(props: OfferProps): JSX.Element {
 
   const currentOffer = offers[offerId];
 
-  const {photos, title, rating: offerRating, type, bedrooms, maxPersons, cost, include, host} = currentOffer;
+  // const {photos, title, rating: offerRating, type, bedrooms, maxPersons, cost, include, host} = currentOffer;
   const otherOffers = offers.slice(0, offerId).concat(offers.slice(offerId + 1, offers.length)).slice(0, 3);
   return (
     <main className="page__main page__main--offer">
-      <section className="offer">
+      {/* <section className="offer">
         <div className="offer__gallery-container container">
           <div className="offer__gallery">
             {photos.map((photo, uniqId) => {
@@ -131,7 +129,7 @@ function OfferScreen(props: OfferProps): JSX.Element {
             {<ListOfOffers offers={otherOffers} handlerMouseOnOffer={(curOffer: Offer) => setOffer(curOffer)}/>}
           </div>
         </section>
-      </div>
+      </div> */}
     </main>
   );
 }

@@ -3,14 +3,12 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { amsterdamOffers } from './mocks/amsterdam-offers';
 import { store } from './store';
-import { checkAuthAction, fetchOffersAction } from './services/api-actions';
+import { checkAuthAction, fetchOffersAction } from './store/api-actions';
+import ErrorMessage from './components/error-message/error-message';
+import { Provider } from 'react-redux';
 
 store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());
-
-const enum Setting {
-  FavoriteCount = 15,
-}
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -18,9 +16,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App
-      favoriteCount={Setting.FavoriteCount}
-      offers={amsterdamOffers}
-    />
+    <Provider store={store}>
+      <ErrorMessage/>
+      <App/>
+    </Provider>
   </React.StrictMode>
 );
