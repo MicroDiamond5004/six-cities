@@ -1,11 +1,10 @@
 import { Link, Outlet } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { useAppSelector } from '../hooks';
 
-type LayoutProps = {
-  favoriteCount: number;
-}
 
-function Layout({favoriteCount}: LayoutProps) : JSX.Element {
+function Layout() : JSX.Element {
+  const favoriteCount = useAppSelector((store) => store.favoriteCount);
   return(
     <div className="page page--favorites-empty">
       <header className="header">

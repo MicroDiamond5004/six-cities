@@ -16,6 +16,7 @@ type InitialStateProps = {
   sortType: string;
   loadStatus: boolean;
   error: string | null;
+  favoriteCount: number,
 }
 
 const initialState: InitialStateProps = {
@@ -28,6 +29,7 @@ const initialState: InitialStateProps = {
   sortType: 'Popular',
   loadStatus: false,
   error: null,
+  favoriteCount: 15,
 };
 
 const reducer = createReducer(initialState, (builder) => {
