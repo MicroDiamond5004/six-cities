@@ -10,4 +10,5 @@ export const changeSortOffers = createAction<string>('locations/changeSortOffers
 export const loadOffers = createAction<Offer[]>('data/loadOffers');
 export const requireAuthotization = createAction<AuthorizationStatus>('user/requireAuthorization');
 export const changeSortType = createAction<string>('locations/changeSortType');
-export const setLoadStatus = createAction<boolean>('f=data/setLoadStatus');
+export const setLoadStatus = createAction<boolean>('data/setLoadStatus');
+export const setError = createAction<string | null>('data/error');

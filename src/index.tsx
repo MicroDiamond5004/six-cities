@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { amsterdamOffers } from './mocks/amsterdam-offers';
 import { store } from './store';
-import { checkAuthAction, fetchOffersAction } from './services/api-actions';
+import { checkAuthAction, fetchOffersAction } from './store/api-actions';
 
 store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());

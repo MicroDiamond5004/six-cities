@@ -9,10 +9,10 @@ export const createAPI = () : AxiosInstance => {
         baseURL: BACKEND_URL,
         timeout: REQUEST_TIMEOUT,
     });
-
+// T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=
     api.interceptors.request.use(
         (config) => {
-            const token = 'T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=';
+            const token = getToken();
 
             if (token && config.headers) {
                 config.headers['x-token'] = token;
