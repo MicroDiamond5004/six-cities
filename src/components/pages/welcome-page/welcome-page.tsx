@@ -2,18 +2,16 @@ import { Offer } from '../../../types/type-offers';
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import ListOfOffers from '../list-of-offers/list-of-offers';
-import { createListOfOffers, changeCity, changeOffer, changeSortOffers, loadOffers, changeSortType, setLoadStatus } from '../../../store/action';
+import { createListOfOffers, changeCity, changeOffer, changeSortOffers, loadOffers, changeSortType } from '../../../store/action';
 import Map from '../../service/map/map';
 import SortComponent from '../sort-component/sort-component';
 import { SortTypes } from '../../../const';
-import Spinner from '../../spinner/spinner';
 
 function WelcomeScreen(): JSX.Element {
   const offers = useAppSelector((state) => state.sortOffers);
   const city = useAppSelector((state) => state.city);
   const offer = useAppSelector((state) => state.currentOffer);
   const uploadOffers = useAppSelector((state) => state.offers);
-  const isLoading = useAppSelector((state) => !state.loadStatus);
 
   const dispatch = useAppDispatch();
 
@@ -62,7 +60,6 @@ function WelcomeScreen(): JSX.Element {
   const NameCities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
   return (
     <main className="page__main page__main--index">
-      {isLoading && <Spinner />}
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">

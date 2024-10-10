@@ -7,9 +7,20 @@ import PrivateRoute from '../private-route/private-route';
 import OfferScreen from '../pages/offer-page/offer-page';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { useAppSelector } from '../hooks';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 
 function App(): JSX.Element {
+  const isLoading = useAppSelector((state) => !state.loadStatus);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+
+  if (authorizationStatus === AuthorizationStatus.Unknown || isLoading) {
+    return (
+      <LoadingScreen/>
+    )
+  }
+
   return(
     <BrowserRouter>
       <Routes>
@@ -26,7 +37,7 @@ function App(): JSX.Element {
             path={AppRoute.Favorite}
             element={
               <PrivateRoute
-                authorizationStatus={AuthorizationStatus.Auth}
+                authorizationStatus={authorizationStatus}
               >
                 <FavoritesScreen/>
               </PrivateRoute>

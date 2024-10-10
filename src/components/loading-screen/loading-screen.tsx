@@ -1,6 +1,6 @@
 import '../../../public/css/spiner.css';
 
-function Spinner() : JSX.Element {
+function LoadingScreen() : JSX.Element {
     return(
         <div className="popup-overlay">
             <div className="popup">
@@ -13,4 +13,4 @@ function Spinner() : JSX.Element {
     )
 }
 
-export default Spinner;
+export default LoadingScreen;
