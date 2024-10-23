@@ -2,6 +2,7 @@ import { FormEvent, useRef } from "react";
 import { useAppDispatch } from "../../hooks";
 import { useNavigate } from "react-router-dom";
 import { loginAction } from "../../../store/api-actions";
+import { AppRoute } from "../../../const";
 
 function LoginScreen() : JSX.Element {
   const loginRef = useRef<null | HTMLInputElement>(null);
@@ -52,7 +53,7 @@ function LoginScreen() : JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="#">
+              <a className="locations__item-link" href="#" onClick={() => navigate(AppRoute.Root)}>
                 <span>Amsterdam</span>
               </a>
             </div>
