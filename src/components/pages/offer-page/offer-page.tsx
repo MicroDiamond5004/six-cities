@@ -2,7 +2,7 @@ import { Offer } from '../../../types/type-offers';
 import { useLocation, Navigate} from 'react-router-dom';
 import ListOfOffers from '../list-of-offers/list-of-offers';
 import FormCommentComponent from '../offer-page/comments/form-comment-component';
-import Map from '../../service/map/map';
+import Map from '../../../services/map/map';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
 

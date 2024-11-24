@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import { amsterdamOffers } from './mocks/amsterdam-offers';
 import { store } from './store';
 import { checkAuthAction, fetchOffersAction } from './store/api-actions';
 import ErrorMessage from './components/error-message/error-message';

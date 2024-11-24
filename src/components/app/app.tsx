@@ -5,13 +5,15 @@ import ErrorScreen from '../pages/error404-page/error404-page';
 import Layout from '../layouts/layout';
 import PrivateRoute from '../private-route/private-route';
 import OfferScreen from '../pages/offer-page/offer-page';
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 
 function App(): JSX.Element {
   return(
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Login}
@@ -42,7 +44,7 @@ function App(): JSX.Element {
           />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

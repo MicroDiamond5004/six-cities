@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import ListOfOffers from '../list-of-offers/list-of-offers';
 import { createListOfOffers, changeCity, changeOffer, changeSortOffers, loadOffers, changeSortType, setLoadStatus } from '../../../store/action';
-import Map from '../../service/map/map';
+import Map from '../../../services/map/map';
 import SortComponent from '../sort-component/sort-component';
 import { SortTypes } from '../../../const';
 import Spinner from '../../spinner/spinner';

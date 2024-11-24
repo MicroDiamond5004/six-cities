@@ -1,7 +1,7 @@
-import { Offer, OfferMap } from '../../../types/type-offers';
+import { Offer, OfferMap } from '../../types/type-offers';
 import { useRef, useEffect } from 'react';
-import useMap from '../../hooks/use-map';
-import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../../const';
+import useMap from '../../components/hooks/use-map';
+import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
 import L, { Icon, layerGroup, Marker } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
