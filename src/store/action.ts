@@ -1,11 +1,12 @@
 import { createAction } from '@reduxjs/toolkit';
-import { Offer } from '../types/type-offers';
+import { Offer, PageOffer } from '../types/type-offers';
 import { AppRoute, AuthorizationStatus } from '../const';
 
 
 export const changeCity = createAction<string>('locations/changeCity');
 export const createListOfOffers = createAction<Offer[]>('locations/createListOfOffers');
 export const changeOffer = createAction<Offer>('locations/changeOffer');
+export const changePageOffer = createAction<PageOffer[]>('locations/changePageOffer');
 export const changeSortOffers = createAction<string>('locations/changeSortOffers');
 export const loadOffers = createAction<Offer[]>('data/loadOffers');
 export const requireAuthotization = createAction<AuthorizationStatus>('user/requireAuthorization');

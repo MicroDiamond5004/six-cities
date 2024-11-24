@@ -11,20 +11,20 @@ import Spinner from '../../spinner/spinner';
 function WelcomeScreen(): JSX.Element {
   const offers = useAppSelector((state) => state.sortOffers);
   const city = useAppSelector((state) => state.city);
-  const offer = useAppSelector((state) => state.currentOffer);
   const uploadOffers = useAppSelector((state) => state.offers);
   const isLoading = useAppSelector((state) => !state.loadStatus);
+  const selectedOffer = useAppSelector((state) => state.currentOffer);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (uploadOffers) {
-      dispatch(createListOfOffers(uploadOffers?.filter((offer) => offer.city.name === city)));
+      dispatch(createListOfOffers(uploadOffers.filter((offer) => offer.city.name === city)));
       dispatch(changeSortType('Popular'));
+      dispatch(changeOffer(uploadOffers.filter((offer) => offer.city.name === city)[0]))
     }
   }, [uploadOffers, city]);
-
-  console.log(offers, offer, city);
+  
 
   const changeCityOffers = (evt: React.MouseEvent<HTMLLIElement>) => {
     const currentCity = evt.currentTarget.textContent;
@@ -59,6 +59,8 @@ function WelcomeScreen(): JSX.Element {
     }
   }
 
+  console.log(selectedOffer?.city);
+
   const NameCities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
   return (
     <main className="page__main page__main--index">
@@ -89,12 +91,12 @@ function WelcomeScreen(): JSX.Element {
             <b className="places__found">{offers?.length} places to stay in {city}</b>
             {<SortComponent handlerOnChangeSort={handleOnChangeSort} />}
             <div className="cities__places-list places__list tabs__content">
-              {offers && <ListOfOffers offers={offers} handlerMouseOnOffer={(curOffer: Offer) => dispatch(changeOffer(curOffer))} />}
+              {offers[0] && selectedOffer && <ListOfOffers offers={offers} />}
             </div>
           </section>
           <div className="cities__right-section">
             {/* <section className="cities__map map"></section> */}
-            {offers && <Map offers={offers} cordinats={offers[0].city.location} currentPoint={offer || offers[0]} height={794} width={500}/>}
+            {offers[0] && selectedOffer && <Map offers={offers} cordinats={offers[0]?.city.location} currentPoint={selectedOffer} height={794} width={500}/>}
           </div>
         </div>
       </div>

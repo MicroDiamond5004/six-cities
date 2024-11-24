@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state';
 import { AxiosInstance } from 'axios';
-import { Offer } from '../types/type-offers';
-import { loadOffers, redirectToRoute, requireAuthotization, setError } from './action';
+import { Offer, PageOffer } from '../types/type-offers';
+import { changeOffer, changePageOffer, loadOffers, redirectToRoute, requireAuthotization, setError } from './action';
 import { APIRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import { AuthData } from '../types/auth-data';
 import { UserData } from '../types/user-data';
@@ -32,6 +32,22 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
         dispatch(loadOffers(data));
     }
 );
+
+export const fetchOfferAction = createAsyncThunk<void, string, {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+}>(
+    'data/fetchCurrentOffer',
+    async(offerId, {dispatch, extra: api}) => {
+        try {
+            const {data: offer} = await api.get<PageOffer>(`/offers/${offerId}`);
+            dispatch(changePageOffer([offer]));
+        } catch {
+            dispatch(redirectToRoute(AppRoute.Error));
+        }
+    },
+)
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
     dispatch: AppDispatch;

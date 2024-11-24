@@ -1,19 +1,18 @@
+import { changeOffer } from '../../../store/action';
 import { Offer } from '../../../types/type-offers';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import TabOfferScreen from '../tab-offer-page/tab-offer-page';
 import React, { useEffect, useState } from 'react';
 
 type OffersProps = {
   offers: Offer[];
-  handlerMouseOnOffer: (offer: Offer) => (void | { payload: Offer; type: string }) | null ;
 }
 
 function ListOfOffers(props: OffersProps): JSX.Element {
-  const {offers, handlerMouseOnOffer} = props;
-  const [currnetOffer, setOffer] = useState(offers[0]);
-  useEffect(() => {
-    handlerMouseOnOffer(currnetOffer);
-  }, [currnetOffer, handlerMouseOnOffer]);
-  const tabsOffers: JSX.Element[] = offers.map((offer) => (<TabOfferScreen key={offer.id} offer={offer} onChangeOffer={() => setOffer(offer)}/>));
+  const {offers} = props;
+  const dispatch = useAppDispatch();
+
+  const tabsOffers: JSX.Element[] = offers.map((offer) => (<TabOfferScreen key={offer.id} offer={offer} onChangeOffer={() => dispatch(changeOffer(offer))}/>));
   return(
     <React.Fragment>
       {tabsOffers.map((el) => el)}

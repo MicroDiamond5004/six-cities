@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, changeOffer, changeSortOffers, changeSortType, createListOfOffers, loadOffers, requireAuthotization, setError, setLoadStatus } from './action';
-import { Offer } from '../types/type-offers';
+import { changeCity, changeOffer, changePageOffer, changeSortOffers, changeSortType, createListOfOffers, loadOffers, requireAuthotization, setError, setLoadStatus } from './action';
+import { Offer, PageOffer } from '../types/type-offers';
 import { offersCityLocations } from '../components/pages/welcome-page/cities-component/cities-component';
 import { AuthorizationStatus, SortTypes } from '../const';
 import { sortByHighPrice, sortByHighRating, sortByLowPrice } from './sort-functions/sort-functions';
@@ -9,9 +9,10 @@ import { sortByHighPrice, sortByHighRating, sortByLowPrice } from './sort-functi
 type InitialStateProps = {
   city: string;
   listOfOffers: Offer[];
-  currentOffer: Offer;
-  sortOffers: Offer[] | null;
-  offers: Offer[] | null;
+  sortOffers: Offer[]
+  offers: Offer[];
+  pageOffer: PageOffer[];
+  currentOffer: Offer | null;
   authorizationStatus: AuthorizationStatus;
   sortType: string;
   loadStatus: boolean;
@@ -21,12 +22,13 @@ type InitialStateProps = {
 
 const initialState: InitialStateProps = {
   city: 'Paris',
-  listOfOffers: offersCityLocations.Paris,
-  currentOffer: offersCityLocations.Paris[0],
-  sortOffers: null,
-  offers: null,
+  listOfOffers: [],
+  sortOffers: [],
+  pageOffer: [],
+  offers: [],
+  currentOffer: null,
   authorizationStatus: AuthorizationStatus.Unknown,
-  sortType: 'Popular',
+  sortType: SortTypes.Popular,
   loadStatus: false,
   error: null,
   favoriteCount: 15,
@@ -40,13 +42,17 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(createListOfOffers, (state, action) => {
       const currentOffers = action.payload;
+      state.currentOffer = currentOffers[0];
       state.listOfOffers = currentOffers;
       state.sortOffers = currentOffers;
-      state.currentOffer = currentOffers[0];
     })
     .addCase(changeOffer, (state, action) => {
       const currentOffer = action.payload;
       state.currentOffer = currentOffer;
+    })
+    .addCase(changePageOffer, (state, action) => {
+      const currentOffer = action.payload;
+      state.pageOffer = currentOffer;
     })
     .addCase(changeSortOffers, (state, action) => {
       const currentType = action.payload;
@@ -71,6 +77,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
+      state.currentOffer = action.payload[0];
       state.loadStatus = true;
     })
     .addCase(requireAuthotization, (state, action) => {
