@@ -1,6 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 import { Offer, PageOffer } from '../types/type-offers';
 import { AppRoute, AuthorizationStatus } from '../const';
+import { PageComment } from '../types/comment';
 
 
 export const changeCity = createAction<string>('locations/changeCity');
@@ -14,3 +15,5 @@ export const changeSortType = createAction<string>('locations/changeSortType');
 export const setLoadStatus = createAction<boolean>('data/setLoadStatus');
 export const setError = createAction<string | null>('data/error');
 export const redirectToRoute = createAction<AppRoute>('locations/redirectToRoute');
+export const addComment = createAction<PageComment>('data/addComment');
+export const changeComments = createAction<PageComment[]>('data/changeCommnts');

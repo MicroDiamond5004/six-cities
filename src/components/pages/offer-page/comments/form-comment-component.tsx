@@ -1,19 +1,26 @@
 import { useState, useRef } from 'react';
 import React from 'react';
 import ListCommentsScreen from '../list-of-comments/list-of-comments';
+import { useAppDispatch, useAppSelector } from '../../../hooks';
+import { AuthorizationStatus } from '../../../../const';
+import { addComment } from '../../../../store/action';
+import { postNewComment } from '../../../../store/api-actions';
 
 function FormCommentComponent() : JSX.Element {
-  const [, setData] = useState({
-    formEl: '',
-  });
   const formRef = useRef(null);
   const reviewRef = useRef(null);
+  
+  const dispatch = useAppDispatch();
+  const authorizationStatus = useAppSelector((store) => store.authorizationStatus);
+  const offer = useAppSelector((store) => store.pageOffer);
+  const offerId = offer[0].id;
+
   return(
     <React.Fragment>
       <ul className="reviews__list" ref={reviewRef}>
-        {formRef && <ListCommentsScreen formRef={formRef}/>}
+        {formRef && <ListCommentsScreen/>}
       </ul>
-      <form className="reviews__form form" action="#" method="post" ref={formRef}>
+      {authorizationStatus === AuthorizationStatus.Auth && <form className="reviews__form form" action="#" method="post" ref={formRef}>
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
         <div className="reviews__rating-form form__rating">
           <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio"/>
@@ -61,15 +68,16 @@ function FormCommentComponent() : JSX.Element {
             const formDOM = formRef.current;
             const reviewDom = reviewRef.current;
             if (formDOM && reviewDom) {
-              setData({
-                formEl: formDOM,
-              });
+              const rating = Number(new FormData(formDOM).get('rating'));
+              const comment = String(new FormData(formDOM).get('review'));
+
+              dispatch(postNewComment({rating, comment, offerId}));
             }
           }}
           >Submit
           </button>
         </div>
-      </form>
+      </form>}
     </React.Fragment>
   );
 }

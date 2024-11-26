@@ -5,7 +5,7 @@ import FormCommentComponent from '../offer-page/comments/form-comment-component'
 import Map from '../../../services/map/map';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchOfferAction } from '../../../store/api-actions';
+import { fetchOfferAction, loadComments } from '../../../store/api-actions';
 import Spinner from '../../spinner/spinner';
 import { store } from '../../../store';
 
@@ -17,12 +17,13 @@ function OfferScreen(): JSX.Element {
   const offerId = location.pathname.split('/')[2];
 
   const offer = useAppSelector((store) => store.currentOffer);
-  const offers = useAppSelector((store) => store.listOfOffers);
+  const offers = useAppSelector((store) => store.offers);
   const currentOffer = useAppSelector((store) => store.pageOffer[0]);
 
   useEffect(() => {
     dispatch(fetchOfferAction(offerId));
-  }, [offer]);
+    dispatch(loadComments(offerId));
+  }, [offerId]);
 
 
   console.log(currentOffer, offerId, offer?.id);
@@ -30,12 +31,12 @@ function OfferScreen(): JSX.Element {
   const [clickOnOffer, setOffer] = useState(offers[0]);
 
   if (currentOffer) {
-    const {images, title, rating: offerRating, type, bedrooms, maxAdults, price, goods, host} = currentOffer;
-    const offerListId = offers.findIndex((currentOffer) => currentOffer.id === offerId);
-    const otherOffers = offers.slice(0, offerListId).concat(offers.slice(offerListId + 1, offers.length)).slice(0, 3);
+    const {images, title, rating: offerRating, type, bedrooms, maxAdults, price, goods, host, description} = currentOffer;
+    const offerListId = offers.findIndex((curOffer) => curOffer.id === offerId);
+    const otherOffers = offers.slice(offerListId - 1, offerListId).concat(offers.slice(offerListId + 1, offers.length)).slice(0, 3);
 
     return (
-      <main className="page__main page__main--offer">
+      <main className="page__main page__main--offer" style={{'background': '#FFF'}}>
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
@@ -74,7 +75,7 @@ function OfferScreen(): JSX.Element {
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {type}
+                  {type.at(0)?.toUpperCase().concat(type.slice(1))}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
                   {bedrooms} Bedrooms
@@ -115,7 +116,7 @@ function OfferScreen(): JSX.Element {
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">
-                    {host.name}
+                    {description}
                   </p>
                 </div>
               </div>
@@ -126,7 +127,9 @@ function OfferScreen(): JSX.Element {
               </section>
             </div>
           </div>
-          <Map offers={otherOffers} cordinats={currentOffer.location} currentPoint={clickOnOffer} height={400} width={null}/>
+          <section className="offer__map map">
+            <Map offers={otherOffers.concat(offers[offerListId])} cordinats={currentOffer.location} currentPoint={offers[offerListId]} height={579} width={null}/>
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
@@ -138,7 +141,7 @@ function OfferScreen(): JSX.Element {
         </div>
       </main>
     );
-  } else {
+  } else {  
     return (
       <main className="page__main page__main--offer">
         <Spinner/>

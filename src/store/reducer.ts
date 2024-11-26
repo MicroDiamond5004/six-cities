@@ -1,9 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, changeOffer, changePageOffer, changeSortOffers, changeSortType, createListOfOffers, loadOffers, requireAuthotization, setError, setLoadStatus } from './action';
+import { addComment, changeCity, changeComments, changeOffer, changePageOffer, changeSortOffers, changeSortType, createListOfOffers, loadOffers, requireAuthotization, setError, setLoadStatus } from './action';
 import { Offer, PageOffer } from '../types/type-offers';
 import { offersCityLocations } from '../components/pages/welcome-page/cities-component/cities-component';
 import { AuthorizationStatus, SortTypes } from '../const';
 import { sortByHighPrice, sortByHighRating, sortByLowPrice } from './sort-functions/sort-functions';
+import { PageComment } from '../types/comment';
 
 
 type InitialStateProps = {
@@ -17,7 +18,8 @@ type InitialStateProps = {
   sortType: string;
   loadStatus: boolean;
   error: string | null;
-  favoriteCount: number,
+  favoriteCount: number;
+  comments: PageComment[];
 }
 
 const initialState: InitialStateProps = {
@@ -32,6 +34,7 @@ const initialState: InitialStateProps = {
   loadStatus: false,
   error: null,
   favoriteCount: 15,
+  comments: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -91,6 +94,12 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(changeComments, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(addComment, (state, action) => {
+      state.comments = [action.payload, ...state.comments];
     })
 });
 

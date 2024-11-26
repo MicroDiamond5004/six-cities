@@ -75,7 +75,7 @@ export type PageOffer = {
     },
     "images": string[];
     "maxAdults": number;
-  }
+}
 
 export type CitiesOffers = {
   Paris: Offer[];

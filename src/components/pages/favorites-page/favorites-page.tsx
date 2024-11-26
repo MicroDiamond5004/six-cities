@@ -3,7 +3,8 @@ import { useAppSelector } from '../../hooks';
 
 function FavoritesScreen(): JSX.Element {
   const navigate = useNavigate();
-  const offers = useAppSelector((store) => store.listOfOffers)
+  const offers = useAppSelector((store) => store.listOfOffers);
+
   return (
     <main className="page__main page__main--favorites page__main--favorites-empty">
       <div className="page__favorites-container container">
@@ -27,7 +28,7 @@ function FavoritesScreen(): JSX.Element {
                         <span>Premium</span>
                       </div>
                       <div className="favorites__image-wrapper place-card__image-wrapper">
-                        <a onClick={() => navigate(`/offer/${id}`)}>
+                        <a onClick={() => navigate(`/offers/${id}`)}>
                           <img className="place-card__image" src={previewImage} width="150" height="110" alt="Place image"/>
                         </a>
                       </div>

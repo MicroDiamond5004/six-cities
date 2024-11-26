@@ -10,6 +10,7 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Offers = '/offers',
+  Comments = '/comments'
 }
 
 export enum AuthorizationStatus {

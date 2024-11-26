@@ -1,10 +1,15 @@
 import { Link, Outlet } from 'react-router-dom';
-import { AppRoute } from '../../const';
-import { useAppSelector } from '../hooks';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { logoutAction } from '../../store/api-actions';
 
 
 function Layout() : JSX.Element {
   const favoriteCount = useAppSelector((store) => store.favoriteCount);
+  const authorizationStatus = useAppSelector((store) => store.authorizationStatus);
+
+  const dispatch = useAppDispatch();
+  
   return(
     <div className="page page--favorites-empty">
       <header className="header">
@@ -26,8 +31,8 @@ function Layout() : JSX.Element {
                   </Link>
                 </li>
                 <li className="header__nav-item">
-                  <Link className="header__nav-link" to={AppRoute.Login}>
-                    <span className="header__signout">Sign out</span>
+                  <Link className="header__nav-link" to={AppRoute.Login} onClick={() => dispatch(logoutAction())}>
+                    <span className="header__signout">{authorizationStatus === AuthorizationStatus.Auth ? 'Sign out' : 'Sing in' }</span>
                   </Link>
                 </li>
               </ul>
