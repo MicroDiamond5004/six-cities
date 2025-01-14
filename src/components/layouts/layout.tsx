@@ -2,11 +2,13 @@ import { Link, Outlet } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { logoutAction } from '../../store/api-actions';
+import { getFavoriteCount } from '../../store/slices/main-offers-process/selectors';
+import { getAuthorizationStatus } from '../../store/slices/user-process/selectors';
 
 
 function Layout() : JSX.Element {
-  const favoriteCount = useAppSelector((store) => store.favoriteCount);
-  const authorizationStatus = useAppSelector((store) => store.authorizationStatus);
+  const favoriteCount = useAppSelector(getFavoriteCount);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const dispatch = useAppDispatch();
   

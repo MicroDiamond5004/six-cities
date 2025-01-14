@@ -1,19 +1,18 @@
-import { Offer } from '../../../types/type-offers';
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import ListOfOffers from '../list-of-offers/list-of-offers';
-import { createListOfOffers, changeCity, changeOffer, changeSortOffers, loadOffers, changeSortType, setLoadStatus } from '../../../store/action';
+import { createListOfOffers, changeCity, changeSortOffers, changeSortType, changeOffer } from '../../../store/slices/main-offers-process/main-offers-process.slice';
 import Map from '../../../services/map/map';
 import SortComponent from '../sort-component/sort-component';
 import { SortTypes } from '../../../const';
-import Spinner from '../../spinner/spinner';
+import { getCity, getCurrentOffer, getSortOffers } from '../../../store/slices/main-offers-process/selectors';
+import { getOffers } from '../../../store/slices/offers-data/selectors';
 
 function WelcomeScreen(): JSX.Element {
-  const offers = useAppSelector((state) => state.sortOffers);
-  const city = useAppSelector((state) => state.city);
-  const uploadOffers = useAppSelector((state) => state.offers);
-  const isLoading = useAppSelector((state) => !state.loadStatus);
-  const selectedOffer = useAppSelector((state) => state.currentOffer);
+  const offers = useAppSelector(getSortOffers);
+  const city = useAppSelector(getCity);
+  const uploadOffers = useAppSelector(getOffers);
+  const selectedOffer = useAppSelector(getCurrentOffer);
 
   const dispatch = useAppDispatch();
 
@@ -64,7 +63,6 @@ function WelcomeScreen(): JSX.Element {
   const NameCities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
   return (
     <main className="page__main page__main--index">
-      {isLoading && <Spinner />}
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">

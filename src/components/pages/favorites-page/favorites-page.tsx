@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
+import { getListOfOffers } from '../../../store/slices/main-offers-process/selectors';
 
 function FavoritesScreen(): JSX.Element {
   const navigate = useNavigate();
-  const offers = useAppSelector((store) => store.listOfOffers);
+  const offers = useAppSelector(getListOfOffers);
 
   return (
     <main className="page__main page__main--favorites page__main--favorites-empty">

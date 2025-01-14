@@ -6,12 +6,26 @@ import Layout from '../layouts/layout';
 import PrivateRoute from '../private-route/private-route';
 import OfferScreen from '../pages/offer-page/offer-page';
 import { Route, Routes } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import { useAppSelector } from '../hooks';
+import { getAuthCheckStatus, getAuthorizationStatus } from '../../store/slices/user-process/selectors';
+import { getLoadStatus } from '../../store/slices/offers-data/selectors';
+import Spinner from '../spinner/spinner';
 
 
 function App(): JSX.Element {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isAuthChecked = useAppSelector(getAuthCheckStatus);
+  const loadStatus = useAppSelector(getLoadStatus);
+
+  if (loadStatus || !isAuthChecked) {
+    return(
+      <Spinner/>
+    )
+  }
+
   return(
     <HistoryRouter history={browserHistory}>
       <Routes>
@@ -28,7 +42,7 @@ function App(): JSX.Element {
             path={AppRoute.Favorite}
             element={
               <PrivateRoute
-                authorizationStatus={AuthorizationStatus.Auth}
+                authorizationStatus={authorizationStatus}
               >
                 <FavoritesScreen/>
               </PrivateRoute>

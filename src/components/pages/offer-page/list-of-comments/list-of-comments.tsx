@@ -1,6 +1,6 @@
-import { MutableRefObject, useRef} from 'react';
 import React from 'react';
 import { useAppSelector } from '../../../hooks';
+import { getComments } from '../../../../store/slices/page-offer-process/selectors';
 
 type FormElProps = {
   rating: number;
@@ -8,7 +8,7 @@ type FormElProps = {
 }
 
 function ListCommentsScreen() : JSX.Element | null {
-  const comments = useAppSelector((store) => store.comments);
+  const comments = useAppSelector(getComments);
 
   // const {formRef} = props;
   // const formDOM = formRef.current;

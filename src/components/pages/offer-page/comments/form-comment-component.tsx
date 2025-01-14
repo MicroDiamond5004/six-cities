@@ -3,16 +3,17 @@ import React from 'react';
 import ListCommentsScreen from '../list-of-comments/list-of-comments';
 import { useAppDispatch, useAppSelector } from '../../../hooks';
 import { AuthorizationStatus } from '../../../../const';
-import { addComment } from '../../../../store/action';
-import { postNewComment } from '../../../../store/api-actions';
+import { getAuthorizationStatus } from '../../../../store/slices/user-process/selectors';
+import { getPageOffer } from '../../../../store/slices/page-offer-process/selectors';
+import { postNewComment } from './api-actions';
 
 function FormCommentComponent() : JSX.Element {
   const formRef = useRef(null);
   const reviewRef = useRef(null);
   
   const dispatch = useAppDispatch();
-  const authorizationStatus = useAppSelector((store) => store.authorizationStatus);
-  const offer = useAppSelector((store) => store.pageOffer);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const offer = useAppSelector(getPageOffer);
   const offerId = offer[0].id;
 
   return(

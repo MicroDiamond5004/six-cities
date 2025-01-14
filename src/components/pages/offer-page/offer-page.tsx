@@ -1,13 +1,14 @@
-import { Offer, PageOffer } from '../../../types/type-offers';
 import { useLocation, Navigate} from 'react-router-dom';
 import ListOfOffers from '../list-of-offers/list-of-offers';
 import FormCommentComponent from '../offer-page/comments/form-comment-component';
 import Map from '../../../services/map/map';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchOfferAction, loadComments } from '../../../store/api-actions';
+import { fetchOfferAction} from '../../../store/api-actions';
 import Spinner from '../../spinner/spinner';
-import { store } from '../../../store';
+import { getCurrentOffer, getOffers } from '../../../store/slices/main-offers-process/selectors';
+import { getPageOffer } from '../../../store/slices/page-offer-process/selectors';
+import { loadComments } from './comments/api-actions';
 
 
 function OfferScreen(): JSX.Element {
@@ -16,9 +17,9 @@ function OfferScreen(): JSX.Element {
   const location = useLocation();
   const offerId = location.pathname.split('/')[2];
 
-  const offer = useAppSelector((store) => store.currentOffer);
-  const offers = useAppSelector((store) => store.offers);
-  const currentOffer = useAppSelector((store) => store.pageOffer[0]);
+  const offer = useAppSelector(getCurrentOffer);
+  const offers = useAppSelector(getOffers);
+  const currentOffer = useAppSelector(getPageOffer)[0];
 
   useEffect(() => {
     dispatch(fetchOfferAction(offerId));

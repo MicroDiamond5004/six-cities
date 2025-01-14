@@ -37,4 +37,11 @@ export const SortTypes = {
   Popular: 'Popular',
 }
 
+export enum NameSpace {
+  Data =  'DATA',
+  User = 'USER',
+  MainOffers = 'MAIN_OFFERS',
+  PageOffer = 'PAGE_OFFER',
+}
+
 export const TIMEOUT_SHOW_ERROR = 2000;

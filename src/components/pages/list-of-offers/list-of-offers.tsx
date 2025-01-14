@@ -1,4 +1,4 @@
-import { changeOffer } from '../../../store/action';
+import { changeOffer } from '../../../store/slices/main-offers-process/main-offers-process.slice';
 import { Offer } from '../../../types/type-offers';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import TabOfferScreen from '../tab-offer-page/tab-offer-page';

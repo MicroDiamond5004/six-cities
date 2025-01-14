@@ -1,6 +1,7 @@
 import { MouseEventHandler, SyntheticEvent, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeSortType } from '../../../store/action';
+import { getSortType } from '../../../store/slices/main-offers-process/selectors';
+import { changeSortType } from '../../../store/slices/main-offers-process/main-offers-process.slice';
 
 type SortProps = {
   handlerOnChangeSort: (SortType: string) => void;
@@ -10,7 +11,7 @@ function SortComponent(props: SortProps) : JSX.Element {
   const { handlerOnChangeSort } = props;
 
   const [displayValue, setDisplayValue] = useState(false);
-  const sortType = useAppSelector((state) => state.sortType); 
+  const sortType = useAppSelector(getSortType); 
   const dispatch = useAppDispatch();
 
   const handlerOnClickSort = (evt: SyntheticEvent<HTMLLIElement>) => {
